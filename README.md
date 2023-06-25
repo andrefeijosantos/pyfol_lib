@@ -1,5 +1,7 @@
 # PyFOL Prover - version 1.0
 
+> "Mathematics is a game played according to certain simple rules with meaningless marks on paper." (David Hilbert)
+
 ### Abstract
 This repository was created to host the code and resources related to the final project of the INF420 course (Artificial Intelligence) at UFV (Universidade Federal de Viçosa), however I intend to keep updating and improving it over time. This project is a simple proposition prover, using First Order Logic, in Python.
 
