@@ -1,5 +1,3 @@
-from command_reader import CommandReader
-
 import pyfol.types.basics as pf
 import pyfol.prover.prover as pr
 import pyfol.env.environment as env
