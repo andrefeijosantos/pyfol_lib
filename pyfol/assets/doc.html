@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8" />
+    <title>Documentação PyFOL</title>
+
+    <style>
+        h1{ 
+            text-align: center; 
+            margin-bottom: 7%;
+        }
+        img {width: 100%;}
+        body {
+            text-align: justify;
+            padding-right: 12%;
+            padding-left: 12%;
+        }
+        #comment { color: green; }
+    </style>
+</head>
+
+<body>
+    <div><a href="home.html">Início</a> ◦ <a href="doc.html">Documentação</a> ◦ <a href="https://github.com/" target="_blank">Github</a></div>
+    <div>
+    <h1>Python First Order Logic - versão 1.0</h1>
+
+    * <a href="#section-1">Ambiente de Prova</a></br>
+    * <a href="#section-2">Constantes</a></br>
+    * <a href="#section-3">Predicados</a></br>
+    * <a href="#section-4">Proposições</a></br>
+    * <a href="#section-5">Predicados Moleculares</a></br>
+    * <a href="#section-6">Provas</a></br>
+    * <a href="#section-7">Operadores Lógicos</a></br>
+    * <a href="#section-8">GraphDrawer</a></br>
+    * <a href="#section-9">Cache e Documentação</a></br></br>
+
+    <h2 id="section-1">Ambiente de Prova</h2>
+    <p> O primeiro passo para escrever uma prova na biblioteca PyFOL é criar um ambiente de prova. Ele é responsável por armazenar todas as 
+        constantes; proposições e predicados. Ele representa o "mundo" que seu agente inteligente conhece para provar algo. Vale ressaltar que
+        - nessa versão - o agente inteligente apenas "conhece" verdades que o usuário inserir. Para criar um ambiente de prova, basta instanciar
+        um objeto do tipo <i>ProofEnvironment</i>.</p>
+
+    <h2 id="section-2">Constantes</h2>
+    <p> Em lógica de primeira ordem, constantes são entidades (normalmente nomeadas por <i>a</i>, <i>b</i> ou <i>c</i> - ou até outros nomes, 
+        como <i>Andre</i>, <i>Julio</i> ou <i>Socrates</i>) que podem ser aplicadas em proposições em um processo mecânico de substituir suas 
+        variáveis por elas. Na biblioteca, é possível criar uma constante utilizando a função <a href="addConst.html">addConst()</a>.</p>
+
+    <div><i>
+        <span id="comment"># Define um ambiente de prova. </span></br>
+        env = env.ProofEnvironment() </br></br>
+    
+        <span id="comment"># Define uma nova constante ao ambiente.</span></br>
+        socrates = env.addConst(name="Socrates") </br>
+    </i></div>
+
+    <h2 id="section-3">Predicados</h2>
+    <p> Em lógica de primeira ordem, um Predicado <i>P</i> é normalmente entendido como uma função booleana <i>P</i>: <i>X</i> → {<i>True</i>, 
+        <i>False</i>}. Normalmente, Predicados são nomeados por <i>P</i>; <i>Q</i> ou <i>R</i>. Porém, novamente, podem ser nomeados de outras
+        formas, como <i>Homem</i> ou <i>Mortal</i>. Um predicado possui variáveis. Assim retornando um valor booleano a depender dos valores
+        das suas variáveis. Na biblioteca, é possível criar uma constante utilizando a função <a href="addPred.html">addPred()</a>.</p>
+
+    <div><i>
+        <span id="comment"># Define um ambiente de prova. </span></br>
+        env = env.ProofEnvironment() </br></br>
+    
+        <span id="comment"># Define uma nova constante ao ambiente.</span></br>
+        socrates = env.addConst(name="Socrates") </br></br>
+
+        <span id="comment"># Define novos predicados.</span> </br>
+        homem  = env.addPred(name="Homem", num_args=1) </br>
+        mortal = env.addPred(name="Mortal", num_args=1) </br>
+    </i></div>
+
+    <h2 id="section-4">Proposições</h2>
+    <p> Em lógica de primeira ordem, uma Proposição <i>P(a1,a2,a3,..., an)</i> é a aplicação de constantes em um predicado. Pode ser 
+        entendida como uma premissa que possui valor Verdadeiro ou Falso. Na biblioteca, uma proposição é o retorno do método apply
+        de um objeto do tipo <i>Pred</i> (predicado). Para supor um valor-verdade para uma proposição, basta utilizar a função sup.</p>
+
+    <div><i>
+        <span id="comment"># Define um ambiente de prova. </span></br>
+        env = env.ProofEnvironment() </br></br>
+    
+        <span id="comment"># Define uma nova constante ao ambiente.</span></br>
+        socrates = env.addConst(name="Socrates") </br></br>
+
+        <span id="comment"># Define novos predicados.</span> </br>
+        homem  = env.addPred(name="Homem", num_args=1) </br>
+        mortal = env.addPred(name="Mortal", num_args=1) </br></br>
+
+        <span id="comment"># Supõe uma proposição: Homem(Socrates).</span></br>
+        homem_socrates = homem.apply([socrates]) </br>
+        env.sup(homem_socrates) </br>
+    </i></div>
+
+    <h2 id="section-5">Predicados Moleculares</h2>
+    <p> Em lógica de primeira ordem, um Predicado Molecular formado por n predicados atômicos é um predicado da forma: <i>P1 {^, v, ⇒, ⇔} P2 
+        {^, v, ⇒, ⇔} P3 {^, v, ⇒, ⇔} ... {^, v, ⇒, ⇔} Pn</i>. Podendo ser parentetizado, ou não. Na biblioteca, um Predicado Molecular pode
+        ser criado utilizando os operadores | (or); & (and) e >> (se, então) entre dois objetos do tipo <i>Pred</i>.</p>
+
+    <div><i>
+        <span id="comment"># Define um ambiente de prova. </span></br>
+        env = env.ProofEnvironment() </br></br>
+    
+        <span id="comment"># Define uma nova constante ao ambiente.</span></br>
+        socrates = env.addConst(name="Socrates") </br></br>
+
+        <span id="comment"># Define novos predicados.</span> </br>
+        homem  = env.addPred(name="Homem", num_args=1) </br>
+        mortal = env.addPred(name="Mortal", num_args=1) </br></br>
+
+        <span id="comment"># Supõe uma proposição: Homem(Socrates).</span></br>
+        homem_socrates = homem.apply([socrates]) </br>
+        env.sup(homem_socrates) </br></br>
+
+        <span id="comment"># Supõe um predicado molecular: Homem(x) => Mortal(x).</span> </br>
+        env.sup(homem.apply(pf.params([env.x(1)])) >> mortal.apply(pf.params([env.x(1)]))) </br>
+    </i></div>
+
+    <h2 id="section-6">Provas</h2>
+    <p> Em lógica de primeira ordem, uma Proposição <i>P(a1,a2,a3,..., an)</i> é a aplicação de constantes em um predicado. Pode ser 
+        entendida como uma premissa que possui valor Verdadeiro ou Falso. Na biblioteca, uma proposição é o retorno do método apply
+        de um objeto do tipo <i>Pred</i> (predicado). Para supor um valor-verdade para uma proposição, basta utilizar a função sup.</p>
+
+    <div><i>
+        <span id="comment"># Define um ambiente de prova. </span></br>
+        env = env.ProofEnvironment() </br></br>
+    
+        <span id="comment"># Define uma nova constante ao ambiente.</span></br>
+        socrates = env.addConst(name="Socrates") </br></br>
+
+        <span id="comment"># Define novos predicados.</span> </br>
+        homem  = env.addPred(name="Homem", num_args=1) </br>
+        mortal = env.addPred(name="Mortal", num_args=1) </br></br>
+
+        <span id="comment"># Supõe uma proposição: Homem(Socrates).</span></br>
+        homem_socrates = homem.apply([socrates]) </br>
+        env.sup(homem_socrates) </br></br>
+
+        <span id="comment"># Supõe um predicado molecular: Homem(x) => Mortal(x).</span> </br>
+        env.sup(homem.apply(pf.params([env.x(1)])) >> mortal.apply(pf.params([env.x(1)]))) </br>
+    </i></div>
+
+    <h2 id="section-7">Operadores Lógicos</h2>
+    <p> Em lógica de primeira ordem, uma Proposição <i>P(a1,a2,a3,..., an)</i> é a aplicação de constantes em um predicado. Pode ser 
+        entendida como uma premissa que possui valor Verdadeiro ou Falso. Na biblioteca, uma proposição é o retorno do método apply
+        de um objeto do tipo <i>Pred</i> (predicado). Para supor um valor-verdade para uma proposição, basta utilizar a função sup.</p>
+
+    <div><i>
+        # Define um ambiente de prova. </br>
+        env = env.ProofEnvironment()
+    </i></div>
+
+    <h2 id="section-8">GraphDrawer</h2>
+    <p> Após executar uma prova, é possível verificar o grafo da dedução natural formado. Para isso, é necessário instanciar um objeto do tipo
+        <i>GraphDrawer</i>, cujo constructo recebe como argumento o objeto do tipo <i>Proof</i> que você deseja verificar o resultado. Após isso,
+        o método <i>draw()</i> é responsável por apresentar na tela o grafo desejado.</br>
+        Ao plotar um grafo com um objeto <i>GraphDrawer</i>, a representação gráfica apresenta as seguintes propriedades:</br>
+        - Cores cinzas indicam que o valor daquele nodo é 0.0;</br>
+        - Verdes cada vez mais claros indicam que o valor daquele nodo é positivo e cada vez maior;</br>
+        - Vermelhos cada vez mais escuros indicam que o valor daquele nodo é negativo e cada vez menor;</br>
+        - O nó de partida é branco com <i>outline</i> cinza;</br>
+        - Nós de absurdo são verde claro com <i>outline</i> verde escuro.</br>
+    </p>
+
+    <div><i>
+        import pyfol.ds.graph_drawer as gd</br></br>
+        (...)</br></br>
+        <span id="comment"># Provar.</span></br>
+        proof.prove(mortal.apply(pf.params([socrates])))</br></br>
+
+        <span id="comment"># Desenha o grafo.</span></br>
+        g = gd.GraphDrawer(proof)</br>
+        g.draw()</br>
+    </i></div>
+
+    <h2 id="section-9">Documentação e Cache</h2>
+    <p> Toda vez que a biblioteca é importada - primeira vez que o arquivo que a importa é executado - este arquivo de documentação é aberto
+        automaticamente. Todos os arquivos que já foram executados pelo menos uma vez são armazenados em um arquivo de texto, chamado cache.txt.
+        Caso deseje limpá-lo, basta chamar a função clearCache().</p>
+    </div>
+</body>
+</html>

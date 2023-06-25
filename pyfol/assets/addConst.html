@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8" />
+    <title>Documentação PyFOL</title>
+
+    <style>
+        h1{ text-align: center; }
+        img {width: 100%;}
+        body {
+            text-align: justify;
+            padding-right: 12%;
+            padding-left: 12%;
+        }
+    </style>
+</head>
+
+<body>
+    <div><a href="home.html">Início</a> ◦ <a href="doc.html">Documentação</a> ◦ <a href="https://github.com/" target="_blank">Github</a></div>
+    <div>
+    <h1>ProofEnvironment.addConst()</h1>
+    <p style="text-align:center">addConst(<b>name</b>="")</p>
+
+    <p>Adiciona uma nova constante ao ambiente de prova.</p>
+
+    <h3>Argumentos:</h3>
+    <p><b>name (opcional): </b> Nome para a nova constante (<i>Default: "a_i"</i>). Para provas grandes, é encorajado o uso de nomes pequenos.</p>
+
+    <h3>Retorno:</h3>
+    <p> Objeto do tipo UserConst.</p>
+
+    <h3>Exemplo de uso:</h3>
+    <p>socrates = env.addConst(name="Socrates")</p>
+    <p>a_1 = env.addConst()</p>
+    <p>python = env.addConst(name="Python")</p>
+    </div>
+</body>
+</html>

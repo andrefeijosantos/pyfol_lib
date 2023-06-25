@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8" />
+    <title>Documentação PyFOL</title>
+
+    <style>
+        h1{ text-align: center; }
+        img {width: 100%;}
+        body {
+            text-align: justify;
+            padding-right: 12%;
+            padding-left: 12%;
+        }
+    </style>
+</head>
+
+<body>
+    <div><a href="home.html">Início</a> ◦ <a href="doc.html">Documentação</a> ◦ <a href="https://github.com/" target="_blank">Github</a></div>
+    <div>
+    <h1>ProofEnvironment.addPred()</h1>
+    <p style="text-align:center;">addPred(<b>name</b>="", <b>num_args</b>="")</p>
+
+    <p>Adiciona um novo predicado ao ambiente de prova.</p>
+
+    <h3>Argumentos:</h3>
+    <p><b>name (opcional): </b> Nome para o novo predicado (<i>Default: "P_i"</i>). Para provas grandes, é encorajado o uso de nomes pequenos.</p>
+    <p><b>num_args (opcional): </b> Número de argumentos do predicado (<i>Default: 1</i>).</p>
+
+    <h3>Retorno:</h3>
+    <p>Objeto do tipo Pred.</p>
+
+    <h3>Exemplo de uso:</h3>
+    <p>homem = env.addPred(name="Homem", num_args=1)</p>
+    <p>P_1 = env.addPred(num_args=3)</p>
+    <p>mortal = env.addPred(name="Mortal")</p>
+    </div>
+</body>
+</html>
