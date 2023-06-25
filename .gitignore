@@ -2,7 +2,7 @@ pyfol/__pycache__
 pyfol/ds/__pycache__
 pyfol/env/__pycache__
 pyfol/inf_rules/__pycache__
-pyfol/logical_operations/__pycache__
+pyfol/logical_operators/__pycache__
 pyfol/prover/__pycache__
 pyfol/types/__pycache__
 *.py[cod]
