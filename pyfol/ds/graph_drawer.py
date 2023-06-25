@@ -2,13 +2,13 @@ import networkx as nx
 import matplotlib.pyplot as plt
 
 class GraphDrawer:
-    def __init__(self, _proof):
-        self.graph = _proof.agent.world.graph
-        self.root = _proof.agent.world.start.getStrId()
-        self.values = _proof.agent.q_values
-        self.convertion = _proof.agent.id_to_name
+    def __init__(self, _env):
+        self.graph = _env.agent.world.graph
+        self.root = _env.agent.world.start.getStrId()
+        self.values = _env.agent.q_values
+        self.convertion = _env.agent.id_to_name
 
-        self.TERMINAL_STATES = _proof.getTerminalStates()
+        self.TERMINAL_STATES = _env.agent.getTerminalStatesStrIds()
 
     def draw(self):
         G = nx.DiGraph()

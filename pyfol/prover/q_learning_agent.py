@@ -113,6 +113,7 @@ class QLearningAgent:
         if self.verbose == True: ep = Episode(ep); ep.header()
         reward, parents, state = 1, [], self.world.start
         self.id_to_name[state.getStrId()] = state.toString()
+        # self.world.end.add((~self.world.start).getStrId())  <============= CONSIDERAR DEPOIS
 
         # Caminha pelo grafo até chegar em algo que prove a proposição ou
         # que não tenha mais para onde ir.

@@ -11,9 +11,10 @@ from pyfol.prover.proof_writer import ProofWriter
 class Proof:
     def __init__(self, _prop, _verbose=True):
         if isinstance(_prop, Prop):
-            self.prop_to_prove_1 = TempProp(_prop, True)
-        else:
+            self.prop_to_prove_1 = TempProp(_prop, False)
+        elif isinstance(_prop, TempProp):
             self.prop_to_prove_1 = _prop
+            self.prop_to_prove_1.hyp = ~self.prop_to_prove_1.hyp
         self.verbose = _verbose
 
     def dist(self, prop):
