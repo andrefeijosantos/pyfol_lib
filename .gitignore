@@ -5,5 +5,5 @@ pyfol/inf_rules/__pycache__
 pyfol/logical_operators/__pycache__
 pyfol/prover/__pycache__
 pyfol/types/__pycache__
-*.py[cod]
+
 *.py
