@@ -167,12 +167,15 @@
         import pyfol.ds.graph_drawer as gd</br></br>
         (...)</br></br>
         <span id="comment"># Provar.</span></br>
-        proof.prove(mortal.apply(pf.params([socrates])))</br></br>
+        proof.prove(mortal.apply([socrates]))</br></br>
 
         <span id="comment"># Desenha o grafo.</span></br>
         g = gd.GraphDrawer(proof)</br>
         g.draw()</br>
     </i></div>
+
+    <p><b>IMPORTANTE:</b> É necessário possuir a biblioteca <a href="https://networkx.org/" target="blank">networkx</a> instalada para conseguir 
+    apresentar a plotagem.</p>
 
     <h2 id="section-9">Documentação e Cache</h2>
     <p> Toda vez que a biblioteca é importada - primeira vez que o arquivo que a importa é executado - este arquivo de documentação é aberto

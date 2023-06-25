@@ -1,10 +1,6 @@
 import heapq
-import copy
-import math
 import time
 
-import pyfol.env.environment
-from pyfol.ds.graph import Graph
 from pyfol.prover.q_learning_agent import QLearningAgent
 from pyfol.prover.q_learning_agent import LogicalWorld
 from pyfol.types.prop import Prop
@@ -13,12 +9,11 @@ from pyfol.types.temp_prop import TempProp
 from pyfol.prover.proof_writer import ProofWriter
 
 class Proof:
-    def __init__(self, _env, _verbose=True):
-        self.env = _env
-        self.prop_to_prove_1 = None
-        self.prop_to_prove_2 = None
-        self.time = 60
-        self.agent = None
+    def __init__(self, _prop, _verbose=True):
+        if isinstance(_prop, Prop):
+            self.prop_to_prove_1 = TempProp(_prop, True)
+        else:
+            self.prop_to_prove_1 = _prop
         self.verbose = _verbose
 
     def dist(self, prop):
@@ -75,26 +70,3 @@ class Proof:
                     heapq.heappush(to_visit, (value + 1 + self.dist(deduction), deduction, ops + [string]))
 
         return (None, "Couldn't prove")
-
-
-
-    def startString(self):
-        string = ""
-        ### ADICIONAR PROPOSIÇÕES E PREDICADOS MOLECULARES AQUI ###
-        return string + f"{self.prop_to_prove_1}".replace("<Pyfol.TempProp NOT ", '~').rstrip('>')
-
-    def setTime(self, _time):
-        self.time = _time
-
-    def header(self):
-        print("PyFOL Prover - version 1.0")
-        print("Time Limit:", self.time, "seconds\n")
-        print(f"Proof Environment with {len(self.env.consts)} constant(s);", end="")
-        print(f" {len(self.env.preds)} atomic predicate(s); {len(self.env.props)} proposition(s) ", end="")
-        print(f"and {len(self.env.compound_preds)} compound predicate(s) assumed\n")
-
-    def getAgent(self):
-        return self.agent
-    
-    def getTerminalStates(self):
-        return self.agent.getTerminalStatesStrIds()

@@ -29,8 +29,8 @@ if __name__ == "__main__":
     env.sup(~homem.apply(pf.params([env.x(1)])) >> animal.apply(pf.params([env.x(1)])))
 
     # Provar.
-    proof.prove(mortal.apply(pf.params([socrates])))
+    env.prove(pr.Proof(mortal.apply(pf.params([socrates])), _verbose=False))
 
     # Desenha o grafo.
-    g = gd.GraphDrawer(proof)
+    g = gd.GraphDrawer(env)
     g.draw()

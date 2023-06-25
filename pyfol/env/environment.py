@@ -9,14 +9,16 @@ from pyfol.types.const import Const
 from pyfol.types.user_const import UserConst
 from pyfol.types.pred import Pred
 from pyfol.types.prop import Prop
-from pyfol.types.temp_pred import TempPred
 from pyfol.types.temp_prop import TempProp
 from pyfol.types.var import Var
+from pyfol.prover.q_learning_agent import QLearningAgent
+from pyfol.prover.q_learning_agent import LogicalWorld
 
 from pyfol.ds.rules import Rules
 
 class ProofEnvironment:
     def __init__(self):
+        # Suposições do usuário.
         keys = [chr(c) for c in range(65, 91)]
         keys += ["OR"]
         self.consts = Table(keys)
@@ -24,12 +26,19 @@ class ProofEnvironment:
         self.props  = Table(keys) 
         self.compound_preds  = Table(keys)
 
+        # Estruturas de dados.
         self.graph     = Graph()
         self.pred_ids  = dict()
         self.inf_rules = Rules(self.pred_ids)
         self.absurdum  = set()
-
         self.defined_names = Table(keys)
+
+        # Agente que "caminha" pelo ambiente de prova.
+        self.time = 60
+        self.agent = None
+
+    # ===== DEFINIÇÃO DO AMBIENTE DE PROVA =====
+    # Os métodos abaixo servem para popular o ambiente de provas.
 
     # === DEFINIÇÕES DE ENTIDADES ===
     # Define uma nova constante para o ambiente.
@@ -113,7 +122,35 @@ class ProofEnvironment:
     def getGraph(self):
         return self.graph
 
+    # === MÉTODOS SET ===
+    def setTimeLimit(self, _time):
+        self.time = _time
+
     # === FIM DOS MÉTODOS GET ===
+    # ===== FIM DA DEFINIÇÃO DO AMBIENTE DE PROVA =====
+
+
+    # ===== MÉTODOS DE PROVA =====
+    # Método público de prova: pode receber uma proposição molecular
+    def prove(self, proof):
+        self.header()
+        self._prove_(proof.prop_to_prove_1, proof.verbose)
+
+    # Método privado de prova: prova cada proposição individualmente.
+    def _prove_(self, prop, verbose):
+        self.world = LogicalWorld(prop, self.absurdum, self.inf_rules)
+        self.agent = QLearningAgent(self.world, _verbose=verbose)
+        self.agent.run()
+
+    def header(self):
+        print("PyFOL Prover - version 1.0")
+        print("Time Limit:", self.time, "seconds\n")
+        print(f"Proof Environment with {len(self.consts)} constant(s);", end="")
+        print(f" {len(self.preds)} atomic predicate(s); {len(self.props)} proposition(s) ", end="")
+        print(f"and {len(self.compound_preds)} compound predicate(s) assumed\n")
+
+    # ===== FIM DOS MÉTODOS DE PROVA =====
+
 
 
 # === FUNÇÕES AUXILIARES ===
