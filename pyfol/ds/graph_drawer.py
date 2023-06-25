@@ -31,14 +31,14 @@ class GraphDrawer:
                     colors += [(2/255, 1, 0)]
                     outline += [(2/255, 115/255, 0)]
                 elif self.values[node[1],(node[0])] > 0:
-                    colors += [((1 + 0.1*self.values[node[1],(node[0])])/255, (80 + min(170, 30*self.values[node[1],(node[0])]))/255, 0)]
-                    outline += [((1 + 0.1*self.values[node[1],(node[0])])/255, (80 + min(170, 30*self.values[node[1],(node[0])]))/255, 0)]
+                    colors += [((1 + 0.1*self.values[node[1],(node[0])]/5)/255, (80 + min(170, 30*self.values[node[1],(node[0])]/5))/255, 0)]
+                    outline += [((1 + 0.1*self.values[node[1],(node[0])]/5)/255, (80 + min(170, 30*self.values[node[1],(node[0])]/5))/255, 0)]
                 elif self.values[node[1],(node[0])] == 0:
                     colors += [(212/255, 213/255, 214/255)]
                     outline += [(212/255, 213/255, 214/255)]
                 else:
-                    colors += [((238 + min(16, 30*self.values[node[1],(node[0])]))/255, 1/255, 1/255)]
-                    outline += [((238 + min(16, 30*self.values[node[1],(node[0])]))/255, 1/255, 1/255)]
+                    colors += [((238 + min(16, 30*self.values[node[1],(node[0])]/5))/255, 1/255, 1/255)]
+                    outline += [((238 + min(16, 30*self.values[node[1],(node[0])]/5))/255, 1/255, 1/255)]
                 G.add_edge(self.convertion[node[1]], self.convertion[node[0]])
 
             visited[node[0]] = True

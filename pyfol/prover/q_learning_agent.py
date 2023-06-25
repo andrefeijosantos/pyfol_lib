@@ -16,7 +16,7 @@ class Episode:
 
     def results(self):
         print(f"Runtime: {self.rntm:.2f}")
-        print(f"Got Reward: {self.reward} (found: {self.final_state})")
+        print(f"Got Reward: {self.reward} (found: {self.final_state.toString()})")
         print("===================\n")
 
 class LogicalWorld:
@@ -34,7 +34,6 @@ class QLearningAgent:
         self.DISCOUNT = _discount
         self.NUM_EPISODES = _num_episodes
         self.verbose = _verbose
-        self.proved  = False
 
         self.q_values = dict()
         self.world = _logical_world
@@ -95,23 +94,29 @@ class QLearningAgent:
     # === FUNÇÕES DE EXECUÇÃO ===
     # Roda todos os episódios do aprendizado Q para o agente.
     def run(self): 
+        proved = 0
         for ep in range(self.NUM_EPISODES): 
-            self.run_episode(ep+1)
-        if self.proved:
+            if self.run_episode(ep+1): proved += 1
+        if proved > 0:
+            self.world.end.add((~self.world.start).getStrId())
             print("====================================")
             print("               PROOF                  \n")
             print(self.world.start.toString(), "| Hyphotesis")
             state = self.world.start
             while state.getStrId() not in self.world.end:
                 state = self.getPolicy(state)
+                if state == None: break
                 print(state.toString())
             print("\nQ.E.D. □")
             print("====================================\n\n")
 
+            return self.world.start
+        return None
+
     # Roda apenas um episódio do aprendizado.
     def run_episode(self, ep):
         if self.verbose == True: ep = Episode(ep); ep.header()
-        reward, parents, state = 1, [], self.world.start
+        reward, parents, state, found = 5, [], self.world.start, set()
         self.id_to_name[state.getStrId()] = state.toString()
         # self.world.end.add((~self.world.start).getStrId())  <============= CONSIDERAR DEPOIS
 
@@ -119,13 +124,16 @@ class QLearningAgent:
         # que não tenha mais para onde ir.
         start_time = time.time()
         while state.getStrId() not in self.world.end:
+            if state.getStrId() in found: reward = -5; break   # MUDAR PARA NUMERICO DEPOIS
+            found.add(state.getStrId())                        # MUDAR PARA NUMERICO DEPOIS
+
             parents.append(state)
             next_state = self.getAction(state)
 
-            if next_state == None: reward = -1; break
+            if next_state == None: reward = -5; break
             elif next_state.getStrId() == self.world.start.getStrId(): 
                 self.world.graph.addConection(state.getStrId(), next_state.getStrId())
-                reward = -1; break
+                reward = -5; break
             else: 
                 self.world.graph.addConection(state.getStrId(), next_state.getStrId())
                 state = next_state
@@ -139,6 +147,7 @@ class QLearningAgent:
             state = parent
         if reward == 1: self.proved = True
         if self.verbose == True: ep.setResults(time.time() - start_time, reward, final_state); ep.results()
+        return reward == 5
 
     def getGraph(self):
         return self.world.graph

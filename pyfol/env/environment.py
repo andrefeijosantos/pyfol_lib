@@ -140,7 +140,10 @@ class ProofEnvironment:
     def _prove_(self, prop, verbose):
         self.world = LogicalWorld(prop, self.absurdum, self.inf_rules)
         self.agent = QLearningAgent(self.world, _verbose=verbose)
-        self.agent.run()
+        prop_proved = self.agent.run()
+
+        # Se foi provado, é uma verdade no contexto. Logo, é um absurdo negá-lo.
+        if prop_proved != None: self.absurdum.add(prop_proved.getStrId())
 
     def header(self):
         print("PyFOL Prover - version 1.0")

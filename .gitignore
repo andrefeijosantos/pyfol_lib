@@ -6,4 +6,6 @@ pyfol/logical_operators/__pycache__
 pyfol/prover/__pycache__
 pyfol/types/__pycache__
 
+pyfol/assets/cache.txt
+
 *.py
