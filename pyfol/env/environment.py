@@ -150,7 +150,7 @@ class ProofEnvironment:
         print("Time Limit:", self.time, "seconds\n")
         print(f"Proof Environment with {len(self.consts)} constant(s);", end="")
         print(f" {len(self.preds)} atomic predicate(s); {len(self.props)} proposition(s) ", end="")
-        print(f"and {len(self.compound_preds)} compound predicate(s) assumed\n")
+        print(f"and {len(self.compound_preds)} compound predicate(s) assumed")
 
     # ===== FIM DOS MÉTODOS DE PROVA =====
 

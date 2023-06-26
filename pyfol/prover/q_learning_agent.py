@@ -1,5 +1,6 @@
 import random, time
 from pyfol.ds.graph import Graph 
+from pyfol.prover.proof_writer import ProofWriter 
 
 class Episode:
     def __init__(self, _ep):
@@ -95,21 +96,18 @@ class QLearningAgent:
     # Roda todos os episódios do aprendizado Q para o agente.
     def run(self): 
         proved = 0
+        start = time.time()
         for ep in range(self.NUM_EPISODES): 
             if self.run_episode(ep+1): proved += 1
+
+        Tf = time.time() - start
+        print(f"\nProposition {(~self.world.start).toString()} proved.")
+        print(f"Number of episodes: {self.NUM_EPISODES}")
+        print(f"Runtime: {Tf:.2f}\n")
+
         if proved > 0:
             self.world.end.add((~self.world.start).getStrId())
-            print("====================================")
-            print("               PROOF                  \n")
-            print(self.world.start.toString(), "| Hyphotesis")
-            state = self.world.start
-            while state.getStrId() not in self.world.end:
-                state = self.getPolicy(state)
-                if state == None: break
-                print(state.toString())
-            print("\nQ.E.D. □")
-            print("====================================\n\n")
-
+            ProofWriter().print(self.world.start, self)
             return self.world.start
         return None
 
