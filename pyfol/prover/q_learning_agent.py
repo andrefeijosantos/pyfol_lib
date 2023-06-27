@@ -40,6 +40,19 @@ class QLearningAgent:
         self.world = _logical_world
         self.id_to_name = dict()
 
+    def set(self, _alpha, _epsilon, _discount, _num_episodes, _verbose):
+        if _alpha != -1: self.alpha = _alpha
+        if _epsilon != -1: self.epsilon = _epsilon
+        if _discount != -1: self.DISCOUNT = _discount
+        if _num_episodes != -1: self.NUM_EPISODES = _num_episodes
+        if _verbose != -1: self.verbose = _verbose
+
+    def setWorld(self, _logical_world):
+        self.world = _logical_world
+
+    def setVerbose(self, _verbose):
+        self.verbose = _verbose
+
     # === FUNÇÕES DE APRENDIZADO Q ===
     # Retorna o valor Q de um estado indo para outro.
     def getQValue(self, state, next_state):

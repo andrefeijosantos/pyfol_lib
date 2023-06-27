@@ -35,7 +35,7 @@ class ProofEnvironment:
 
         # Agente que "caminha" pelo ambiente de prova.
         self.time = 60
-        self.agent = None
+        self.agent = QLearningAgent(None)
 
     # ===== DEFINIÇÃO DO AMBIENTE DE PROVA =====
     # Os métodos abaixo servem para popular o ambiente de provas.
@@ -126,6 +126,9 @@ class ProofEnvironment:
     def setTimeLimit(self, _time):
         self.time = _time
 
+    def configureAgent(self, _alpha=-1, _epsilon=-1, _discount=-1, _num_episodes=-1, _verbose=-1):
+        self.agent.set(_alpha, _epsilon, _discount, _num_episodes, _verbose)
+
     # === FIM DOS MÉTODOS GET ===
     # ===== FIM DA DEFINIÇÃO DO AMBIENTE DE PROVA =====
 
@@ -139,7 +142,8 @@ class ProofEnvironment:
     # Método privado de prova: prova cada proposição individualmente.
     def _prove_(self, prop, verbose):
         self.world = LogicalWorld(prop, self.absurdum, self.inf_rules)
-        self.agent = QLearningAgent(self.world, _verbose=verbose)
+        self.agent.setWorld(self.world)
+        self.agent.setVerbose(verbose)
         prop_proved = self.agent.run()
 
         # Se foi provado, é uma verdade no contexto. Logo, é um absurdo negá-lo.
