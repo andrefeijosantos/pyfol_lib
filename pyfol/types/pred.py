@@ -2,9 +2,7 @@ from pyfol.logical_operators.logical_or import *
 from pyfol.logical_operators.logical_and import *
 from pyfol.types.temp_pred import TempPred
 from pyfol.types.prop import Prop
-from pyfol.types.forall_pred import ForAllPred
-
-import pyfol.types.params as prms
+from pyfol.types.user_const import UserConst
 
 class Pred:
     def __init__(self, _name, _num_args, _id):
@@ -14,8 +12,8 @@ class Pred:
         self.id       = _id
 
     def apply(self, params):
-        if params.tp == prms.PROP: 
-            return Prop(self, params.args)
+        if all(isinstance(p, UserConst) for p in params): 
+            return Prop(self, params)
         else:
             return TempPred(self, params, True)
 

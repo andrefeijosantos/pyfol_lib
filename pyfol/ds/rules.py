@@ -1,4 +1,3 @@
-import pyfol.types.basics as pf
 from pyfol.types.prop import Prop
 from pyfol.types.temp_prop import TempProp
 
@@ -29,7 +28,7 @@ class Rules():
         deductions = []
         try:
             for ded in self.table[pred_id]:
-                prop = self.ids[abs(ded)].apply(pf.params(prop.prop.consts))
+                prop = self.ids[abs(ded)].apply(prop.prop.consts)
                 if ded < 0: prop = ~prop
                 else: prop = TempProp(prop, True)
                 deductions.append(prop)

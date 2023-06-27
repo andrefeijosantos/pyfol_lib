@@ -1,13 +1,13 @@
-import pyfol.types.basics as pf
 import pyfol.prover.prover as pr
 import pyfol.env.environment as env
 
 import pyfol.ds.graph_drawer as gd
 
 if __name__ == "__main__":
-    env = env.ProofEnvironment() # Define um ambiente de prova.
-    proof = pr.Proof(env, _verbose=False)
+    # Define um ambiente de prova.
+    env = env.ProofEnvironment() 
 
+    # === PRIMEIRA PROVA: Mortal(Socrates) := True ===
     # Define uma nova constante ao ambiente.
     socrates = env.addConst(name="Socrates")
 
@@ -19,18 +19,42 @@ if __name__ == "__main__":
     irracional = env.addPred(name="Irracional", num_args=1)
 
     # Supõe uma proposição.
-    env.sup(~irracional.apply(pf.params([socrates])))
+    env.sup(~irracional.apply([socrates]))
 
     # Supõe um predicado: Homem(x) => Mortal(x)
-    env.sup(homem.apply(pf.params([env.x(1)])) >> mortal.apply(pf.params([env.x(1)])))
-    env.sup(~mortal.apply(pf.params([env.x(1)])) >> imortal.apply(pf.params([env.x(1)])))
-    env.sup(imortal.apply(pf.params([env.x(1)])) >> ~mortal.apply(pf.params([env.x(1)])))
-    env.sup(~homem.apply(pf.params([env.x(1)])) >> irracional.apply(pf.params([env.x(1)])))
-    env.sup(~homem.apply(pf.params([env.x(1)])) >> animal.apply(pf.params([env.x(1)])))
+    env.sup(homem.apply([env.x(1)]) >> mortal.apply([env.x(1)]))
+    env.sup(~mortal.apply([env.x(1)]) >> imortal.apply([env.x(1)]))
+    env.sup(imortal.apply([env.x(1)]) >> ~mortal.apply([env.x(1)]))
+    env.sup(~homem.apply([env.x(1)]) >> irracional.apply([env.x(1)]))
+    env.sup(~homem.apply([env.x(1)]) >> animal.apply([env.x(1)]))
 
     # Provar.
-    env.prove(pr.Proof(mortal.apply(pf.params([socrates])), _verbose=False))
+    env.prove(pr.Proof(mortal.apply([socrates]), _verbose=False))
 
     # Desenha o grafo.
     g = gd.GraphDrawer(env)
     g.draw()
+
+    # === FIM DA PRIMEIRA PROVA ===
+
+    # === SEGUNDA PROVA: Divindade(Socrates) := False ===
+    # Mais predicados a serem adicionados no contexto.
+    deus_grego = env.addPred(name="DeusGrego", num_args=1)
+    divindade = env.addPred(name="Divindade", num_args=1)
+    cultuado = env.addPred(name="Cultutado", num_args=1)
+    sobrenatural = env.addPred(name="Sobrenatural", num_args=1)
+
+    # Novas deduções.
+    env.sup(deus_grego.apply([env.x(1)]) >> imortal.apply([env.x(1)]))
+    env.sup(divindade.apply([env.x(1)]) >> deus_grego.apply([env.x(1)]))
+    env.sup(divindade.apply([env.x(1)]) >> cultuado.apply([env.x(1)]))
+    env.sup(divindade.apply([env.x(1)]) >> sobrenatural.apply([env.x(1)]))
+
+    # Provar.
+    env.prove(pr.Proof(~divindade.apply([socrates]), _verbose=False))
+
+    # Desenha o grafo.
+    g = gd.GraphDrawer(env)
+    g.draw()
+
+    # === FIM DA SEGUNDA PROVA ===

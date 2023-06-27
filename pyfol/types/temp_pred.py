@@ -15,8 +15,8 @@ class TempPred:
 
     def __repr__(self):
         if self.hyp:
-            return f"<pyfol.TempPred {self.params.typeToString()} {self.pred.name}>"
-        return f"<pyfol.TempPred {self.params.typeToString()} NOT {self.pred.name}>"
+            return f"<pyfol.TempPred {self.pred.name}>"
+        return f"<pyfol.TempPred NOT {self.pred.name}>"
 
     def __or__(self, other):
         return LogicalOR(self, other)
