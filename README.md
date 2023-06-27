@@ -7,3 +7,10 @@ This repository was created to host the code and resources related to the final 
 
 ### Resumo
 Esse repositório foi criado para armazenar o código e os recursos relacionados ao projeto final do curso de INF420 (Inteligencia Artificial) na UFV (Universidade Federal de Viçosa), porém pretendo seguir o atualizando e incrementando ao longo do tempo. Este projeto se trata de um singelo provador de proposições, utilizando Lógica de Primeira Ordem, em Python.
+
+
+### Results
+It's possible to check the results with the proof agent at the [Google Colaboratory](https://colab.research.google.com/drive/1z7eB68cjP_bKOe4WK07rXpqihZOr7zPc?usp=sharing) link.
+
+### Resultados
+É possível verificar resultados de teste realizados com o agente inteligente de provas no seguinte link para o [Google Colaboratory](https://colab.research.google.com/drive/1z7eB68cjP_bKOe4WK07rXpqihZOr7zPc?usp=sharing).
