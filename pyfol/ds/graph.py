@@ -20,6 +20,9 @@ class Graph:
         for k in self.graph.keys():
             print(k, self.graph[k])
 
+    def vertex(self):
+        return self.graph.keys()
+
     def __getitem__(self, item):
         try:
             return self.graph[item]

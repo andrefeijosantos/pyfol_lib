@@ -8,5 +8,6 @@ pyfol/types/__pycache__
 
 pyfol/assets/cache.txt
 
-# Testes são feitos com o nome main*.py, onde * é um valor numérico.
+# Testes são feitos com o nome main*.py e test*.py, onde * é um valor numérico.
 main*.py
+test*.py

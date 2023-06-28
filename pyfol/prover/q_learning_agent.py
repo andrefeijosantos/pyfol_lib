@@ -2,6 +2,8 @@ import random, time
 from pyfol.ds.graph import Graph 
 from pyfol.prover.proof_writer import ProofWriter 
 
+from pyfol.prover.proof_data import ProofData
+
 class Episode:
     def __init__(self, _ep):
         self.ep = _ep
@@ -121,8 +123,10 @@ class QLearningAgent:
         if proved > 0:
             self.world.end.add((~self.world.start).getStrId())
             ProofWriter().print(self.world.start, self)
-            return self.world.start
-        return None
+        else:
+            print("\nCouldn't prove")
+
+        return ProofData(proved > 0, self.world.start, Tf, self.NUM_EPISODES, proved, len(self.world.graph.vertex()))
 
     # Roda apenas um episódio do aprendizado.
     def run_episode(self, ep):

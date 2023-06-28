@@ -137,17 +137,19 @@ class ProofEnvironment:
     # Método público de prova: pode receber uma proposição molecular
     def prove(self, proof):
         self.header()
-        self._prove_(proof.prop_to_prove_1, proof.verbose)
+        return self._prove_(proof.prop_to_prove_1, proof.verbose)
 
     # Método privado de prova: prova cada proposição individualmente.
     def _prove_(self, prop, verbose):
         self.world = LogicalWorld(prop, self.absurdum, self.inf_rules)
         self.agent.setWorld(self.world)
         self.agent.setVerbose(verbose)
-        prop_proved = self.agent.run()
+        proof_data = self.agent.run()
 
         # Se foi provado, é uma verdade no contexto. Logo, é um absurdo negá-lo.
-        if prop_proved != None: self.absurdum.add(prop_proved.getStrId())
+        if proof_data[0] != None: self.absurdum.add(proof_data[1].getStrId())
+
+        return proof_data
 
     def header(self):
         print("PyFOL Prover - version 1.0")
