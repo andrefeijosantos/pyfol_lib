@@ -42,6 +42,7 @@ class QLearningAgent:
         self.world = _logical_world
         self.id_to_name = dict()
 
+    # Seta cada parâmetro individualmente.
     def set(self, _alpha, _epsilon, _discount, _num_episodes, _verbose):
         if _alpha != -1: self.alpha = _alpha
         if _epsilon != -1: self.epsilon = _epsilon
@@ -114,53 +115,59 @@ class QLearningAgent:
         start = time.time()
         for ep in range(self.NUM_EPISODES): 
             if self.run_episode(ep+1): proved += 1
-
         Tf = time.time() - start
-        print(f"\nProposition {(~self.world.start).toString()} proved.")
+
         print(f"Number of episodes: {self.NUM_EPISODES}")
-        print(f"Runtime: {Tf:.2f}\n")
+        print(f"Runtime: {Tf:.2f}")
 
         if proved > 0:
+            print(f"\nProposition {(~self.world.start).toString()} proved.")
             self.world.end.add((~self.world.start).getStrId())
             ProofWriter().print(self.world.start, self)
         else:
-            print("\nCouldn't prove")
+            print(f"Couldn't prove {(~self.world.start).toString()}.")
+            
 
         return ProofData(proved > 0, self.world.start, Tf, self.NUM_EPISODES, proved, len(self.world.graph.vertex()))
 
     # Roda apenas um episódio do aprendizado.
     def run_episode(self, ep):
         if self.verbose == True: ep = Episode(ep); ep.header()
-        reward, parents, state, found = 5, [], self.world.start, set()
+        reward, parents, state, found = -5, [], self.world.start, set()
         self.id_to_name[state.getStrId()] = state.toString()
+        rewards = [0]
         # self.world.end.add((~self.world.start).getStrId())  <============= CONSIDERAR DEPOIS
 
         # Caminha pelo grafo até chegar em algo que prove a proposição ou
         # que não tenha mais para onde ir.
         start_time = time.time()
         while state.getStrId() not in self.world.end:
-            if state.getStrId() in found: reward = -5; break   # MUDAR PARA NUMERICO DEPOIS
-            found.add(state.getStrId())                        # MUDAR PARA NUMERICO DEPOIS
+            if state.getStrId() in found: rewards.append(-5); break # MUDAR PARA NUMERICO DEPOIS
+            found.add(state.getStrId())                             # MUDAR PARA NUMERICO DEPOIS
 
             parents.append(state)
             next_state = self.getAction(state)
 
-            if next_state == None: reward = -5; break
+            if next_state == None: rewards.append(-5); break
             elif next_state.getStrId() == self.world.start.getStrId(): 
                 self.world.graph.addConection(state.getStrId(), next_state.getStrId())
-                reward = -5; break
+                rewards.append(-5); break
             else: 
                 self.world.graph.addConection(state.getStrId(), next_state.getStrId())
                 state = next_state
+                rewards.append(-0.5)
             self.id_to_name[state.getStrId()] = state.toString()
         final_state = state
+        if rewards[len(rewards)-1] == -0.5:
+            self.proved, reward = True, 5
+            rewards[len(rewards)-1] = 5
 
-        # Atualiza os valores Q de cada par (estado, proximo_estadp)
+        # Atualiza os valores Q de cada par (estado, proximo_estado)
         while len(parents) > 0:
             parent = parents.pop(len(parents)-1)
-            self.update(parent, state, reward)
+            self.update(parent, state, rewards.pop(len(rewards)-1))
             state = parent
-        if reward == 1: self.proved = True
+        if reward == 5: self.proved = True
         if self.verbose == True: ep.setResults(time.time() - start_time, reward, final_state); ep.results()
         return reward == 5
 
