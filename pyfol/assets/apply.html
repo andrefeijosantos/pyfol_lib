@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8" />
+    <title>Documentação PyFOL</title>
+
+    <style>
+        h1{ text-align: center; }
+        img {width: 100%;}
+        body {
+            text-align: justify;
+            padding-right: 12%;
+            padding-left: 12%;
+        }
+        #comment { color: green; }
+    </style>
+</head>
+
+<body>
+    <div><a href="home.html">Início</a> ◦ <a href="doc.html">Documentação</a> ◦ <a href="https://github.com/" target="_blank">Github</a></div>
+    <div>
+    <h1>Pred.apply()</h1>
+    <p style="text-align:center">apply(<b>list</b>)</p>
+
+    <p>Aplica uma lista de constantes em um predicado atômico para formar uma proposição ou lista de variáveis <i>x1, x2, x3, ..., xn</i> em um 
+        predicado atômico para formar um predicado do tipo <i>∀x1∀x2∀x3, ..., ∀xn P</i>.</p>
+
+    <h3>Argumentos:</h3>
+    <p><b>list: </b> Lista de variáveis ou constantes que se deseja aplicar ao predicado.</p>
+    <p><b>IMPORTANTE:</b> Nessa primeira versão, é necessário que a lista de argumentos seja inteiramente de variáveis ou de constantes.</p>
+
+    <h3>Retorno:</h3>
+    <p>Proposição ou Predicado, a depender da entrada.</p>
+
+    <h3>Exemplo de uso (Retornando Proposições):</h3>
+    <p>mortal_socrates = mortal.apply([socrates]) <span id="comment"># Mortal(Socrates)</span></p>
+    <p>homem_socrates = homem.apply([socrates])   <span id="comment"># Homem(Socrates)</span></p>
+
+    <h3>Exemplo de uso (Retornando Predicados):</h3>
+    <p>forall_x_homem_x = homem.apply([env.x(1)]) <span id="comment"># ∀x Homem(x1)</span></p>
+    <p>env.sup(homem.apply([env.x(1)]) >> mortal.apply([env.x(1)])) <span id="comment"># ∀x Homem(x1) ⇒ Mortal(x1)</span></p>
+    </div>
+</body>
+</html>

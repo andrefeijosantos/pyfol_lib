@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8" />
+    <title>Documentação PyFOL</title>
+
+    <style>
+        h1{ text-align: center; }
+        img {width: 100%;}
+        body {
+            text-align: justify;
+            padding-right: 12%;
+            padding-left: 12%;
+        }
+    </style>
+</head>
+
+<body>
+    <div><a href="home.html">Início</a> ◦ <a href="doc.html">Documentação</a> ◦ <a href="https://github.com/" target="_blank">Github</a></div>
+    <div>
+    <h1>ProofEnvironment.sup()</h1>
+    <p style="text-align:center">sup(<b>entity</b>)</p>
+
+    <p>Assume como verdadeiro uma proposição ou predicado no ambiente de provas.</p>
+
+    <h3>Argumentos:</h3>
+    <p><b>entity: </b> Proposição ou Predicado que se deseja assumir verdadeiro.</p>
+
+    <h3>Exemplo de uso:</h3>
+    <p>env.sup(mortal.apply([socrates]))</p>
+    <p>env.sup(homem.apply([env.x(1)]) >> mortal.apply([env.x(1)]))</p>
+    <p>env.sup(~imortal.apply([socrates]))</p>
+    <p>env.sup(P.apply([env.x(1)]) | Q.apply([env.x(1)]))</p>
+    </div>
+</body>
+</html>

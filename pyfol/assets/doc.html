@@ -51,7 +51,7 @@
         <span>import pyfol.env.environment as environment</span></br></br>
 
         <span id="comment"># Define um ambiente de prova. </span></br>
-        env = environmentironment.ProofEnvironment() </br></br>
+        env = environment.ProofEnvironment() </br></br>
     
         <span id="comment"># Define uma nova constante ao ambiente.</span></br>
         socrates = env.addConst(name="Socrates") </br>
@@ -78,7 +78,8 @@
     <h2 id="section-4">Proposições</h2>
     <p> Em lógica de primeira ordem, uma Proposição <i>P(a1,a2,a3,..., an)</i> é a aplicação de constantes em um predicado. Pode ser 
         entendida como uma premissa que possui valor Verdadeiro ou Falso. Na biblioteca, uma proposição é o retorno do método apply
-        de um objeto do tipo <i>Pred</i> (predicado). Para supor um valor-verdade para uma proposição, basta utilizar a função sup.</p>
+        de um objeto do tipo <i>Pred</i> (predicado). Para supor um valor-verdade para uma proposição, basta utilizar a função 
+        <a href="sup.html">sup()</a>.</p>
 
     <div><i>
         <span id="comment"># Define um ambiente de prova. </span></br>
@@ -99,12 +100,14 @@
     <h2 id="section-5">Predicados Moleculares</h2>
     <p> Em lógica de primeira ordem, um Predicado Molecular formado por n predicados atômicos é um predicado da forma: <i>P1 {^, v, ⇒, ⇔} P2 
         {^, v, ⇒, ⇔} P3 {^, v, ⇒, ⇔} ... {^, v, ⇒, ⇔} Pn</i>. Podendo ser parentetizado, ou não. Na biblioteca, um Predicado Molecular pode
-        ser criado utilizando os operadores | (or); & (and) e >> (se, então) entre dois objetos do tipo <i>Pred</i> aplicados em uma lista de
-        variáveis. Para isso, deve-se chamar o método <i>apply()</i>, passando uma lista de objetos do tipo <i>Var</i>. Para criar uma instância de
-        <i>Var</i>, basta chamar o método <i>x()</i> do seu ambiente de prova, passando como parâmetro o índice da variável. Ao aplicar a lista de 
-        variáveis <i>x1, x2, x3, ..., xn</i> em um predicado <i>P</i>, o retorno é um predicado do tipo <i>∀x1∀x2∀x3, ..., ∀xn P</i> na Forma Clausal.</p>
-        <p><b>IMPORTANTE:</b> Nessa primeira versão, é necessário que, dados os dois predicados <i>P</i> e <i>Q</i>, em ambos estejam sendo
-            aplicadas as mesmas variáveis na mesma ordem.</p>
+        ser criado utilizando os operadores | (or); & (and) e >> (se, então) entre dois objetos do tipo <i>Pred</i> (mais detalhados em 
+        <a href="#section-7">Operadores Lógicos</a>) aplicados em uma lista de variáveis. Para isso, deve-se chamar o método 
+        <a href="apply.html">apply()</a>, passando uma lista de objetos do tipo <i>Var</i>. Para criar uma instância de <i>Var</i>, basta chamar um 
+        dos métodos <a href="x_y_z.html">x(), y(), ou z()</a> do seu ambiente de prova, passando como parâmetro o índice da variável. Ao aplicar a 
+        lista de variáveis <i>x1, x2, x3, ..., xn</i> em um predicado <i>P</i>, o retorno é um predicado do tipo <i>∀x1∀x2∀x3, ..., ∀xn P</i> na 
+        Forma Clausal.</p>
+        <p><b>IMPORTANTE:</b> Nessa primeira versão, dados os dois predicados atômicos <i>P</i> e <i>Q</i>, para cosntruir um predicado molecular 
+            entre eles, é necessário que em ambos estejam sendo aplicadas as mesmas variáveis na mesma ordem.</p>
 
     <div><i>
         <span id="comment"># Define um ambiente de prova. </span></br>
@@ -126,8 +129,8 @@
     </i></div>
 
     <h2 id="section-6">Provas</h2>
-    <p> Para realizar uma prova, basta chamar o método <i>prove()</i> do seu ambiente de prova, passando como parâmetro um objeto do
-        tipo <i>Proof()</i>, que recebe a proposição que se deseja provar.</p>
+    <p> Para realizar uma prova, basta chamar o método <a href="prove.html">prove()</a> do seu ambiente de prova, passando como parâmetro um objeto do
+        tipo <a href="proof_constructor.html">Proof()</a>, que recebe a proposição que se deseja provar.</p>
 
     <div><i>
         <span id="comment"># Define um ambiente de prova. </span></br>
@@ -148,8 +151,26 @@
         env.sup(homem.apply([env.x(1)]) >> mortal.apply([env.x(1)])) </br></br>
 
         <span id="comment"># Provar.</span></br>
-        env.prove(pr.Proof(~divindade.apply([socrates]), _verbose=False))</br></br>
+        env.prove(pr.Proof(mortal.apply([socrates]), _verbose=False))</br></br>
     </i></div>
+
+    <h2 id="section-7">Operadores Lógicos</h2>
+    <p> Os operadores lógicos disponibilizados pela biblioteca pertencem ao conjunto completo {¬, ^, v, ⇒}. Esse são representados pelos operadores
+        do python ~ (NOT); & (AND); | (OR) e >> (se, então). Para utilizar esses operadores, binários ou unário (NOT), os mesmo devem ser aplicados
+        em objetos do tipo <i>Pred</i>.</p>
+
+        <span id="comment"># ∀x ~Mortal(x).</span> </br>
+        env.sup(~mortal.apply([env.x(1)])) </br></br>
+
+        <span id="comment"># Homem(x) ^ Mortal(x).</span> </br>
+        env.sup(homem.apply([env.x(1)]) & mortal.apply([env.x(1)])) </br></br>
+
+        <span id="comment"># Homem(x) v ~Mortal(x).</span> </br>
+        env.sup(homem.apply([env.x(1)]) | ~mortal.apply([env.x(1)])) </br></br>
+
+        <span id="comment"># ∀x Homem(x) ⇒ Mortal(x).</span> </br>
+        env.sup(homem.apply([env.x(1)]) >> mortal.apply([env.x(1)])) </br></br>
+    </div>
 
     <h2 id="section-8">GraphDrawer</h2>
     <p> Após executar uma prova, é possível verificar o grafo da dedução natural formado. Para isso, é necessário instanciar um objeto do tipo
@@ -167,7 +188,7 @@
         import pyfol.ds.graph_drawer as gd</br></br>
         (...)</br></br>
         <span id="comment"># Provar.</span></br>
-        proof.prove(mortal.apply([socrates]))</br></br>
+        env.prove(mortal.apply([socrates]))</br></br>
 
         <span id="comment"># Desenha o grafo.</span></br>
         g = gd.GraphDrawer(proof)</br>

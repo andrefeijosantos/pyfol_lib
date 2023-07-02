@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8" />
+    <title>Documentação PyFOL</title>
+
+    <style>
+        h1{ text-align: center; }
+        img {width: 100%;}
+        body {
+            text-align: justify;
+            padding-right: 12%;
+            padding-left: 12%;
+        }
+    </style>
+</head>
+
+<body>
+    <div><a href="home.html">Início</a> ◦ <a href="doc.html">Documentação</a> ◦ <a href="https://github.com/" target="_blank">Github</a></div>
+    <div>
+    <h1>Proof()</h1>
+    <p style="text-align:center;">Proof(<b>prop</b>, <b>_verbose</b>=True)</p>
+
+    <p>Constrói um objeto do tipo <i>Proof</i>.</p>
+
+    <h3>Argumentos:</h3>
+    <p><b>prop (opcional): </b> Proposição que se deseja provar.</p>
+    <p><b>_verbose (opcional): </b> Se deseja um relatório dos episódios (<i>Default: True</i>).</p>
+
+    <h3>Retorno:</h3>
+    <p>Objeto do tipo Proof.</p>
+
+    <h3>Exemplo de uso:</h3>
+    <p>proof_data = env.prove(pr.Proof(mortal.apply([socrates]), _verbose=False))</p>
+    </div>
+</body>
+</html>
