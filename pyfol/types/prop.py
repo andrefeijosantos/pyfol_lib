@@ -13,12 +13,13 @@ class Prop:
         for const in self.consts: self.hash += 2**p * (const.id+1); p-=1
 
     def toString(self):
-        self.string = self.pred.name + '('
-        for i in range(len(self.consts)-1):
-            self.string += self.consts[i].name + ","
-        self.string += self.consts[len(self.consts)-1].name + ")"
-
-        return self.string
+        if len(self.consts) > 0:
+            self.string = self.pred.name + '('
+            for i in range(len(self.consts)-1):
+                self.string += self.consts[i].name + ","
+            self.string += self.consts[len(self.consts)-1].name + ")"
+            return self.string
+        return self.pred.name
 
     def getHash(self):
         return self.hash
@@ -45,3 +46,6 @@ class Prop:
 
     def __invert__(self):
         return TempProp(self, False) ### CORRIGIR ###
+    
+    def __rshift__(self, other):
+        return ~self | other

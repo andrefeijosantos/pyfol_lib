@@ -141,7 +141,7 @@ class ProofEnvironment:
 
     # Método privado de prova: prova cada proposição individualmente.
     def _prove_(self, prop, verbose):
-        self.world = LogicalWorld(prop, self.absurdum, self.inf_rules)
+        self.world = LogicalWorld(prop, self.absurdum.copy(), self.inf_rules)
         self.agent.setWorld(self.world)
         self.agent.setVerbose(verbose)
         proof_data = self.agent.run()

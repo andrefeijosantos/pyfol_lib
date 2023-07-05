@@ -18,9 +18,6 @@ class Rules():
     def print(self):
         print(self.table)
 
-    def find(self, pred):
-        print("oi")
-
     def getDeductions(self, prop):
         pred_id = (prop.prop.pred.getId()+1)
         if not prop.hyp: pred_id *= -1

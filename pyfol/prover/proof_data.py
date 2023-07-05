@@ -9,3 +9,6 @@ class ProofData:
 
     def __getitem__(self, item):
         return (self.proved, self.prop, self.rntm, self.eps, self.proved_eps, self.total_nodes)[item]
+    
+    def __str__(self):
+        return f"{(self.proved, self.prop, self.rntm, self.eps, self.proved_eps, self.total_nodes)}"

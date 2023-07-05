@@ -15,7 +15,7 @@ class ProofWriter:
         print(agent.world.start.toString(), " "*(max_length-len(agent.world.start.toString())) + "| Hyphotesis")
         state = agent.world.start
         while True:
-            if state.getStrId() not in agent.world.end: break
+            if state.getStrId() in agent.world.end: break
 
             state = agent.getPolicy(state)
             if state == None: break

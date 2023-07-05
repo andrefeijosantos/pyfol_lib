@@ -122,8 +122,8 @@ class QLearningAgent:
 
         if proved > 0:
             print(f"\nProposition {(~self.world.start).toString()} proved.")
-            self.world.end.add((~self.world.start).getStrId())
             ProofWriter().print(self.world.start, self)
+            self.world.end.add((~self.world.start).getStrId())
         else:
             print(f"Couldn't prove {(~self.world.start).toString()}.")
             

@@ -12,6 +12,7 @@ class Pred:
         self.id       = _id
 
     def apply(self, params):
+        if len(params) > self.num_args: raise "EROR"          # ===> LEMBRAR <========
         if all(isinstance(p, UserConst) for p in params): 
             return Prop(self, params)
         else:
@@ -42,8 +43,7 @@ class Pred:
             return LogicalAND(TempPred(self, True), TempPred(other, True))
 
     def __invert__(self):
-        return TempPred(self, False)
+        return TempPred(self, [], False)
 
     def __eq__(self, other):
         return self.name == other.name and self.num_args == other.num_args
-    

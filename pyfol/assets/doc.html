@@ -158,6 +158,8 @@
     <p> Os operadores lógicos disponibilizados pela biblioteca pertencem ao conjunto completo {¬, ^, v, ⇒}. Esse são representados pelos operadores
         do python ~ (NOT); & (AND); | (OR) e >> (se, então). Para utilizar esses operadores, binários ou unário (NOT), os mesmo devem ser aplicados
         em objetos do tipo <i>Pred</i>.</p>
+        <p><b>IMPORTANTE:</b> Vale, novamente, ressaltar que os operadores só podem ser aplicados entre PREDICADOS (e que pred.apply([]) é um
+            proposição, logo p.apply([]) >> q.apply([]) é inválido).</p>
 
         <span id="comment"># ∀x ~Mortal(x).</span> </br>
         env.sup(~mortal.apply([env.x(1)])) </br></br>
@@ -191,7 +193,7 @@
         env.prove(mortal.apply([socrates]))</br></br>
 
         <span id="comment"># Desenha o grafo.</span></br>
-        g = gd.GraphDrawer(proof)</br>
+        g = gd.GraphDrawer(env)</br>
         g.draw()</br>
     </i></div>
 
