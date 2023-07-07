@@ -17,7 +17,7 @@ import pyfol.env.environment as environment
 
 import pyfol.ds.graph_drawer as gd # If you want to plot a graph (IMPORTANT: you need networkx lib)
 ```
-When you run your code, a HTML file will open the documentation.
+When you run your code, a HTML file will open with the documentation.
 
 ### Tutorial - PTBR
 Depois de baixar a biblioteca PyFOL, crie um arquivo .py na mesma paste em que estão as pastas "pyfol" e "examples". Então, cole as seguintes linhas no seu código:
