@@ -19,7 +19,7 @@ import pyfol.ds.graph_drawer as gd # If you want to plot a graph (IMPORTANT: you
 ```
 
 ### Tutorial - PTBR
-Depois de baixar a biblioteca PyFOL, crie um arquivo .py na mesma paste em que estão as pasta "pyfol" e "examples". Então, cole as seguintes linhas no seu código:
+Depois de baixar a biblioteca PyFOL, crie um arquivo .py na mesma paste em que estão as pastas "pyfol" e "examples". Então, cole as seguintes linhas no seu código:
 
 ```
 import pyfol.prover.prover as pr
