@@ -41,6 +41,7 @@ class QLearningAgent:
         self.q_values = dict()
         self.world = _logical_world
         self.id_to_name = dict()
+        self.writer = ProofWriter()
 
     # Seta cada parâmetro individualmente.
     def set(self, _alpha, _epsilon, _discount, _num_episodes, _verbose):
@@ -122,13 +123,16 @@ class QLearningAgent:
 
         if proved > 0:
             print(f"\nProposition {(~self.world.start).toString()} proved.")
-            ProofWriter().print(self.world.start, self)
+            ProofWriter().print(self.world.start, self, self.world.inf_rules.moves)
             self.world.end.add((~self.world.start).getStrId())
         else:
             print(f"Couldn't prove {(~self.world.start).toString()}.")
             
 
         return ProofData(proved > 0, self.world.start, Tf, self.NUM_EPISODES, proved, len(self.world.graph.vertex()))
+
+    def isTerminalState(self, state):
+        return state.getStrId() in self.world.end or state.prop.pred.name in self.world.end
 
     # Roda apenas um episódio do aprendizado.
     def run_episode(self, ep):
@@ -141,7 +145,7 @@ class QLearningAgent:
         # Caminha pelo grafo até chegar em algo que prove a proposição ou
         # que não tenha mais para onde ir.
         start_time = time.time()
-        while state.getStrId() not in self.world.end:
+        while not self.isTerminalState(state):
             if state.getStrId() in found: rewards.append(-5); break # MUDAR PARA NUMERICO DEPOIS
             found.add(state.getStrId())                             # MUDAR PARA NUMERICO DEPOIS
 

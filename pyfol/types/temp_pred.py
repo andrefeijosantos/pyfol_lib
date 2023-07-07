@@ -25,7 +25,10 @@ class TempPred:
         return self.pred.id == other.pred.id and self.hyp == other.hyp
 
     def __and__(self, other):
-        print("AND")
+        if isinstance(other, TempPred):
+            return LogicalAND(self, other)
+        elif isinstance(other, Pred):
+            return LogicalAND(self, TempPred(other, True))
 
     def __invert__(self):
         return TempPred(self.pred, self.params, not self.hyp)

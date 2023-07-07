@@ -1,14 +1,22 @@
 from pyfol.types.prop import Prop
 from pyfol.types.temp_prop import TempProp
 
+from pyfol.inf_rules.modus_ponens import ModusPonens
+from pyfol.inf_rules.modus_tollens import ModusTollens
+
 class Rules():
     def __init__(self, _ids):
         self.table = dict()
         self.ids   = _ids
+        self.moves = dict()
 
-    def add(self, pred_id, deduction):
+    def add(self, pred_id, deduction, move):
         try: self.table[pred_id].append(deduction)
         except: self.table[pred_id] = [deduction]
+        if move == 0:
+            self.moves[(abs(pred_id), abs(deduction))] = ModusPonens(self.ids[abs(pred_id)],self.ids[abs(deduction)])
+        elif move == 1:
+            self.moves[(abs(pred_id), abs(deduction))] = ModusTollens(self.ids[abs(pred_id)],self.ids[abs(deduction)])
 
     def getVertice(self, pred):
         k1 = pred.getId() + 1

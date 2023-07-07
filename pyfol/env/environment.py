@@ -10,6 +10,7 @@ from pyfol.types.user_const import UserConst
 from pyfol.types.pred import Pred
 from pyfol.types.prop import Prop
 from pyfol.types.temp_prop import TempProp
+from pyfol.types.temp_pred import TempPred
 from pyfol.types.var import Var
 from pyfol.prover.q_learning_agent import QLearningAgent
 from pyfol.prover.q_learning_agent import LogicalWorld
@@ -31,7 +32,8 @@ class ProofEnvironment:
         self.pred_ids  = dict()
         self.inf_rules = Rules(self.pred_ids)
         self.absurdum  = set()
-        self.defined_names = Table(keys)
+        self.defined_names  = Table(keys)
+        self.absurdum_preds = set()
 
         # Agente que "caminha" pelo ambiente de prova.
         self.time = 60
@@ -75,6 +77,11 @@ class ProofEnvironment:
         elif isinstance(entity, LogicalOR):
             entity.apply(self.inf_rules)
             self.compound_preds.Add("OR", entity)
+        elif isinstance(entity, TempPred):
+            self.absurdum_preds.add(entity.pred.name)
+        elif isinstance(entity, LogicalAND):
+            self.sup(entity.temp_pred1)
+            self.sup(entity.temp_pred2)
 
     # === FIM DAS FUNÇÕES DE HIPÓTESES LÓGICAS ===
 
@@ -141,7 +148,7 @@ class ProofEnvironment:
 
     # Método privado de prova: prova cada proposição individualmente.
     def _prove_(self, prop, verbose):
-        self.world = LogicalWorld(prop, self.absurdum.copy(), self.inf_rules)
+        self.world = LogicalWorld(prop, self.absurdum.copy().union(self.absurdum_preds.copy()), self.inf_rules)
         self.agent.setWorld(self.world)
         self.agent.setVerbose(verbose)
         proof_data = self.agent.run()
