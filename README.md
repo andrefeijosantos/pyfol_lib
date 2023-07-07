@@ -8,6 +8,21 @@ This repository was created to host the code and resources related to the final 
 ### Resumo
 Esse repositório foi criado para armazenar o código e os recursos relacionados ao projeto final do curso de INF420 (Inteligencia Artificial) na UFV (Universidade Federal de Viçosa), porém pretendo seguir o atualizando e incrementando ao longo do tempo. Este projeto se trata de um singelo provador de proposições, utilizando Lógica de Primeira Ordem, em Python.
 
+### Tutorial - EN
+After downloading the PyFOL lib, create a .py file in the same folder where "pyfol" and "examples" folders are. Then paste the lines ate your code:
+
+import pyfol.prover.prover as pr
+import pyfol.env.environment as environment
+
+import pyfol.ds.graph_drawer as gd           // If you want to plot a graph (IMPORTANT: you need networkx lib)
+
+### Tutorial - PTBR
+Depois de baixar a biblioteca PyFOL, crie um arquivo .py na mesma paste em que estão as pasta "pyfol" e "examples". Então, cole as seguintes linhas no seu código:
+
+import pyfol.prover.prover as pr
+import pyfol.env.environment as environment
+
+import pyfol.ds.graph_drawer as gd           // Se você quer plotar um grafo (IMPORTANTE: você precisa da biblioteca networkx)
 
 ### Results
 It's possible to check the results with the proof agent at the [Google Colaboratory](https://colab.research.google.com/drive/1z7eB68cjP_bKOe4WK07rXpqihZOr7zPc?usp=sharing) link.
