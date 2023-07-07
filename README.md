@@ -9,7 +9,7 @@ This repository was created to host the code and resources related to the final 
 Esse repositório foi criado para armazenar o código e os recursos relacionados ao projeto final do curso de INF420 (Inteligencia Artificial) na UFV (Universidade Federal de Viçosa), porém pretendo seguir o atualizando e incrementando ao longo do tempo. Este projeto se trata de um singelo provador de proposições, utilizando Lógica de Primeira Ordem, em Python.
 
 ### Tutorial - EN
-After downloading the PyFOL lib, create a .py file in the same folder where "pyfol" and "examples" folders are. Then paste the lines ate your code:
+After downloading the PyFOL lib, create a .py file in the same folder where "pyfol" and "examples" folders are. Then paste the folowing lines in your code:
 
 ```
 import pyfol.prover.prover as pr
