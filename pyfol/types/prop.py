@@ -45,7 +45,7 @@ class Prop:
             return LogicalAND(TempProp(self, True), TempProp(other, True))
 
     def __invert__(self):
-        return TempProp(self, False) ### CORRIGIR ###
+        return TempProp(self, False)
     
     def __rshift__(self, other):
         return ~self | other

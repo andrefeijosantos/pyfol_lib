@@ -8,8 +8,9 @@ class Rules():
     def __init__(self, _ids):
         self.table = dict()
         self.ids   = _ids
-        self.moves = dict()
+        self.moves = dict()   # Mapeia um par de predicados nas regras de inferências usadas.
 
+    # Adiciona uma linha ao mapa de regras
     def add(self, pred_id, deduction, move):
         try: self.table[pred_id].append(deduction)
         except: self.table[pred_id] = [deduction]
@@ -26,6 +27,7 @@ class Rules():
     def print(self):
         print(self.table)
 
+    # Retorna todas as deduções a partir da proposição prop
     def getDeductions(self, prop):
         pred_id = (prop.prop.pred.getId()+1)
         if not prop.hyp: pred_id *= -1

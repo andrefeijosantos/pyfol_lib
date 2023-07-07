@@ -25,6 +25,7 @@ class TempPred:
         return self.pred.id == other.pred.id and self.hyp == other.hyp
 
     def __and__(self, other):
+        from pyfol.types.pred import Pred
         if isinstance(other, TempPred):
             return LogicalAND(self, other)
         elif isinstance(other, Pred):

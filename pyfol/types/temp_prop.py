@@ -43,8 +43,4 @@ class TempProp:
             return LogicalAND(self, TempProp(other, True))
 
     def __invert__(self):
-        return TempProp(self.prop, ~self.hyp) ### CORRIGIR ###
-
-    # REPENSAR!!!!!!!!
-    def __lt__(self, other):
-        return self.getHash() < other.getHash()
+        return TempProp(self.prop, ~self.hyp)

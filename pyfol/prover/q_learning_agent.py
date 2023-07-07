@@ -139,20 +139,19 @@ class QLearningAgent:
         if self.verbose == True: ep = Episode(ep); ep.header()
         reward, parents, state, found = -5, [], self.world.start, set()
         self.id_to_name[state.getStrId()] = state.toString()
-        rewards = [0]
-        # self.world.end.add((~self.world.start).getStrId())  <============= CONSIDERAR DEPOIS
+        rewards = [0]; self.world.end.add((~self.world.start).getStrId())  # se p := T, p -> ~p := F
 
         # Caminha pelo grafo até chegar em algo que prove a proposição ou
         # que não tenha mais para onde ir.
         start_time = time.time()
         while not self.isTerminalState(state):
-            if state.getStrId() in found: rewards.append(-5); break # MUDAR PARA NUMERICO DEPOIS
-            found.add(state.getStrId())                             # MUDAR PARA NUMERICO DEPOIS
+            if state.getStrId() in found: rewards.append(-5); break
+            found.add(state.getStrId())                            
 
             parents.append(state)
             next_state = self.getAction(state)
 
-            if next_state == None: rewards.append(-5); break
+            if next_state == None or ((time.time() - start_time) >= 3600): rewards.append(-5); break
             elif next_state.getStrId() == self.world.start.getStrId(): 
                 self.world.graph.addConection(state.getStrId(), next_state.getStrId())
                 rewards.append(-5); break

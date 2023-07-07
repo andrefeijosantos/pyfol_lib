@@ -4,7 +4,6 @@ from pyfol.ds.graph import Graph
 from pyfol.logical_operators.logical_or import *
 from pyfol.logical_operators.logical_and import *
 
-from pyfol.env.env_exceptions import *
 from pyfol.types.const import Const
 from pyfol.types.user_const import UserConst
 from pyfol.types.pred import Pred
@@ -45,9 +44,7 @@ class ProofEnvironment:
     # === DEFINIÇÕES DE ENTIDADES ===
     # Define uma nova constante para o ambiente.
     def addConst(self, name=""):
-        if not IsValidName(name): raise InvalidNameException(name) # Nome inválido
-        if self.defined_names.Exists(name[0].upper(), name):       # Nome já definido.
-            raise NameAlreadyDefinedException(name) 
+        if name == "": name = "a_" + len(self.consts)
 
         const = UserConst(name, len(self.consts))
         self.consts.Add(name[0].upper(), const)
@@ -56,6 +53,8 @@ class ProofEnvironment:
 
     # Define um novo predicado para o ambiente.
     def addPred(self, name="", num_args=1):
+        if name == "": name = "P_" + len(self.consts)
+
         pred = Pred(name, num_args, len(self.preds))
         self.preds.Add(name[0].upper(),pred)
         self.defined_names.Add(name[0].upper(),name)

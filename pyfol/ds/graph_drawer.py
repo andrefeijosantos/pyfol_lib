@@ -10,6 +10,7 @@ class GraphDrawer:
 
         self.TERMINAL_STATES = _env.agent.getTerminalStatesStrIds()
 
+    # Desenha um grafo com os resultados
     def draw(self):
         G = nx.DiGraph()
         pos, colors, outline = dict(), [(1,1,1)], [(34/255, 35/255, 36/255)]
