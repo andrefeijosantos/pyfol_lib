@@ -17,6 +17,7 @@ import pyfol.env.environment as environment
 
 import pyfol.ds.graph_drawer as gd # If you want to plot a graph (IMPORTANT: you need networkx lib)
 ```
+When you run your code, a HTML file will open the documentation.
 
 ### Tutorial - PTBR
 Depois de baixar a biblioteca PyFOL, crie um arquivo .py na mesma paste em que estão as pastas "pyfol" e "examples". Então, cole as seguintes linhas no seu código:
@@ -27,6 +28,8 @@ import pyfol.env.environment as environment
 
 import pyfol.ds.graph_drawer as gd # Se você quer plotar um grafo (IMPORTANTE: você precisa da biblioteca networkx)
 ```
+
+Quando você executar um código com essas linhas, um arquivo HTML irá abrir com a documentação.
 
 ### Results
 It's possible to check the results with the proof agent at the [Google Colaboratory](https://colab.research.google.com/drive/1z7eB68cjP_bKOe4WK07rXpqihZOr7zPc?usp=sharing) link.
